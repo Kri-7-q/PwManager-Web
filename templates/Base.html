@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Passwort Manager</title>
+    {% block script %}
+    {% endblock %}
+</head>
+    <body>
+        <h1>{{ pageValues['header'] }}
+            <small>Passwort Manager</small>
+        </h1>
+        <hr>
+        <br>
+        {% block content %}
+        {% endblock %}
+    </body>
+    {% block javaScriptCode %}
+    {% endblock %}
+</html>

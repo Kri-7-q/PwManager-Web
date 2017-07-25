@@ -1,0 +1,74 @@
+{% extends 'Base.html' %}
+
+{% block script %}
+    <script src="static/script/angular-1.6.5/angular.min.js"></script>
+    <link rel="stylesheet" href="static/style/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <style>
+        .accountTbl {
+            margin-left: 5%;
+            width: 50%;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div ng-app="AccountList" ng-controller="listCtrl">
+    <table class="table table-bordered table-hover accountTbl">
+        <thead>
+        <tr class="bg-primary">
+            <th>Id</th>
+            <th>Konto</th>
+            <th>Benutzer</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in tableModel track by $index" ng-click="passwordToClipboard($index)">
+            <td><< row.id >></td>
+            <td><< row.provider >></td>
+            <td><< row.username >></td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    {% endblock %}
+
+    <!-- ------------------------------------------------------------------ -->
+    <!--                        JavaScript (AngularJS)                      -->
+    <!-- ------------------------------------------------------------------ -->
+    {% block javaScriptCode %}
+    <script>
+        var app = angular.module("AccountList", ['ngClipboard']);
+        app.controller("listCtrl", function ($scope, $http) {
+
+            // HTTP get data from the server.
+            var url = "/accountList";
+            $http.get(url).then(
+                function success(response) {
+                    $scope.tableModel = response.data;
+                },
+                function error(response) {
+                    // Could not reach the server.
+                }
+            );
+
+            /**
+             * Copy password of an account into clipboard.
+             * @param index
+             */
+            $scope.passwordToClipboard = function (index) {
+                var row = $scope.tableModel[index];
+                var pwd = row.password;
+                console.log("Das Passwort: " + pwd);
+                ngClipboard.toClipboard(pwd);
+                if (window.clipboardData && clipboardData.setData) {
+                    // Copy password to clipboard
+                } else {
+                    alert("Browser unterstütz das Kopieren in die Zwischenablage nicht !");
+                }
+            }
+
+        }).config(function ($interpolateProvider) {
+            $interpolateProvider.startSymbol('<<').endSymbol('>>');
+        });
+    </script>
+{% endblock %}
