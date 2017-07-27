@@ -1,11 +1,16 @@
-{% macro angularApp(pageValues) %}
-    {% if 'ngApp' in pageValues %}
-        ng-app="{{ pageValues['ngApp'] }}"
-    {% endif %}
-{% endmacro %}
-
-{% macro angularCtrl(pageValues) %}
-    {% if 'ngController' in pageValues %}
-        ng-controller="{{ pageValues['ngCtrl'] }}"
-    {% endif %}
+{% macro actionDropDown(account) %}
+    <div class="dropdown">
+        <button class="btn btn-warning dropdown-toggle" type="button" id="dropdow{{ account.id }}" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+            Aktion
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdown{{ account.id }}">
+            <li><a href="#">Passwort anzeigen</a></li>
+            <li><a href="#">Account editieren</a></li>
+            <li><a href="#">Account löschen</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Abbrechen</a></li>
+        </ul>
+    </div>
 {% endmacro %}

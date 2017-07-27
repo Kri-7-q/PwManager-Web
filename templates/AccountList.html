@@ -1,35 +1,48 @@
 {% extends 'Base.html' %}
+{% from 'helperMacros.html' import actionDropDown %}
 
 {% block script %}
-    <script src="static/script/angular-1.6.5/angular.min.js"></script>
+    <script src="static/script/angular-1.6.5/angular.js"></script>
+    <script src="static/script/jquery-3.2.1.js"></script>
+    <script src="static/style/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
     <link rel="stylesheet" href="static/style/bootstrap-3.3.7-dist/css/bootstrap.css">
     <style>
-        .accountTbl {
+        .dropDownBtn {
+            visibility: hidden;
+            position: absolute;
+            right: 5%;
+        }
+        .listTable {
+            width: 90%;
             margin-left: 5%;
-            width: 50%;
-        }
-
-        .objectScreen {
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(80, 80, 80, 0.9);
-            display: none;
-        }
-
-        .menuPanel {
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 50px;
-            width: 30%;
+            margin-right: 5%;
         }
     </style>
 {% endblock %}
 
 {% block content %}
-    <table class="table table-bordered table-hover accountTbl">
+    <!-- -------------------------------------------------------------- -->
+    <!--                            Slection made                       -->
+    <!-- -------------------------------------------------------------- -->
+    <div id="menuBtn" class="dropdown dropDownBtn">
+        <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+            Aktionen f&uuml;r diesen Eintrag
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a ng-click="showPassword()">Passwort anzeigen</a></li>
+            <li><a >Eintrag editieren</a></li>
+            <li><a >Eintrag l&ouml;schen</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a ng-click="cancelSelection()">Abbrechen</a></li>
+        </ul>
+    </div>
+
+    <!-- -------------------------------------------------------------- -->
+    <!--                       Account list table                       -->
+    <!-- -------------------------------------------------------------- -->
+    <table id="listTbl" class="table table-bordered table-hover listTable">
         <thead>
         <tr class="bg-primary">
             <th>Id</th>
@@ -38,46 +51,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="row in tableModel track by $index" ng-click="showMenu($index)">
-            <td><< row.id >></td>
-            <td><< row.provider >></td>
-            <td><< row.username >></td>
-        </tr>
+            <tr ng-repeat="account in tableModel track by $index" ng-click="showDropDownBtn($index)">
+                <td><< account.id >></td>
+                <td><< account.provider >></td>
+                <td><< account.username >></td>
+            </tr>
         </tbody>
     </table>
 
-    <!-- ------------------------------------------------------------------ -->
-    <!--                        Menu Panel                                  -->
-    <!-- ------------------------------------------------------------------ -->
-    <div id="objScreen" class="objectScreen">
-        <div class="panel panel-primary menuPanel">
-            <div class="panel-heading">Account augewählt</div>
-            <div class="panel-body">
-                <table class="table">
-                    <tr>
-                        <th>Attribut</th>
-                        <th class="text-right">Wert</th>
-                    </tr>
-                    <tr>
-                        <td>Id</td>
-                        <td class="text-right"><< selectedObj.id >></td>
-                    </tr>
-                    <tr>
-                        <td>Anbieter</td>
-                        <td class="text-right"><< selectedObj.provider >></td>
-                    </tr>
-                    <tr>
-                        <td>Benutzername</td>
-                        <td class="text-right"><< selectedObj.username >></td>
-                    </tr>
-                </table>
-                <a class="btn btn-primary">Passwort anzeigen</a>
-                <a class="btn btn-primary">Editieren</a>
-                <a class="btn btn-primary">Löschen</a>
-                <a class="btn btn-default" ng-click="cancelScreen()">Abbrechen</a>
-            </div>
-        </div>
-    </div>
 {% endblock %}
 
 <!-- ------------------------------------------------------------------ -->
@@ -85,54 +66,50 @@
 <!-- ------------------------------------------------------------------ -->
 {% block javaScriptCode %}
     <script>
-        var app = angular.module("{{ pageValues['ngApp'] }}", []);
-        app.controller("{{ pageValues['ngCtrl'] }}", function ($scope, $http) {
+         var app = angular.module("{{ pageValues['ngApp'] }}", []);
+         app.controller("{{ pageValues['ngCtrl'] }}", function ($scope, $http) {
 
-            // HTTP get data from the server.
-            var url = "/accountListData";
-            $http.get(url).then(
-                function success(response) {
-                    $scope.tableModel = response.data;
-                },
-                function error(response) {
-                    // Could not reach the server.
-                }
-            );
+             // Load account list from the server.
+             $http.get("/accountListData").then(
+                 function (response) {
+                     // Success
+                     $scope.tableModel = response.data;
+                 },
+                 function () {
+                     // Error
+                 }
+             );
 
-            $scope.selectedObj = null;
+             $scope.selectedIndex = 0;
 
-            /**
-             * Open menu to a selected Object.
-             * @param index
-             */
-            $scope.showMenu = function (index) {
-                $scope.selectedObj = copyObj(index);
-                objScreen.style.display = "inline";
-            };
+             /**
+              * Place drop down button an make it visible.
+              * @param index
+              */
+             $scope.showDropDownBtn = function (index) {
+                 listTbl.rows[$scope.selectedIndex+1].style.backgroundColor = "white";
+                 listTbl.rows[index+1].style.backgroundColor = "lightblue";
+                 var rowHeight = listTbl.rows[1].offsetHeight;
+                 var topBase = listTbl.offsetTop + listTbl.rows[0].offsetHeight;
+                 var btnHeight = menuBtn.offsetHeight;
+                 var margin = (rowHeight - btnHeight) / 2;
+                 var top = topBase + rowHeight * index + margin;
+                 menuBtn.style.top = top + "px";
+                 menuBtn.style.visibility = "visible";
+                 $scope.selectedIndex = index;
+             }
 
-            /**
-             * Close screen of selected account object.
-             */
-            $scope.cancelScreen = function () {
-                objScreen.style.display = "none";
-            };
+             /**
+              * Cancel list selection.
+              */
+             $scope.cancelSelection = function () {
+                 listTbl.rows[$scope.selectedIndex+1].style.backgroundColor = "white";
+                 menuBtn.style.visibility = "hidden";
+                 $scope.selectedIndex = 0;
+             }
 
-            /**
-             * Copy an object from the model.
-             * @param index
-             * @returns
-             */
-            function copyObj(index) {
-                var duplicate = {};
-                duplicate.id = $scope.tableModel[index].id;
-                duplicate.provider = $scope.tableModel[index].provider;
-                duplicate.username = $scope.tableModel[index].username;
-
-                return duplicate;
-            }
-
-        }).config(function ($interpolateProvider) {
-            $interpolateProvider.startSymbol('<<').endSymbol('>>');
-        });
+         }).config(function ($interpolateProvider) {
+         $interpolateProvider.startSymbol('<<').endSymbol('>>');
+         });
     </script>
 {% endblock %}
