@@ -1,3 +1,10 @@
+{% if 'ngApp' in pageValues %}
+    {% set htmlAttr=' ng-app="' + pageValues['ngApp'] + '"' %}
+    {% set bodyAttr=' ng-controller="' + pageValues['ngCtrl'] + '"' %}
+{% else %}
+    {% set htmlAttr='' %}
+    {% set bodyAttr='' %}
+{% endif %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +13,7 @@
     {% block script %}
     {% endblock %}
 </head>
-    <body>
+    <body{{ htmlAttr | safe }}{{ bodyAttr | safe }}>
         <h1>{{ pageValues['header'] }}
             <small>Passwort Manager</small>
         </h1>

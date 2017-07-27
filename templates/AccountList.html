@@ -8,11 +8,27 @@
             margin-left: 5%;
             width: 50%;
         }
+
+        .objectScreen {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(80, 80, 80, 0.9);
+            display: none;
+        }
+
+        .menuPanel {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 50px;
+            width: 30%;
+        }
     </style>
 {% endblock %}
 
 {% block content %}
-    <div ng-app="AccountList" ng-controller="listCtrl">
     <table class="table table-bordered table-hover accountTbl">
         <thead>
         <tr class="bg-primary">
@@ -22,26 +38,58 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="row in tableModel track by $index" ng-click="passwordToClipboard($index)">
+        <tr ng-repeat="row in tableModel track by $index" ng-click="showMenu($index)">
             <td><< row.id >></td>
             <td><< row.provider >></td>
             <td><< row.username >></td>
         </tr>
         </tbody>
     </table>
-    </div>
-    {% endblock %}
 
     <!-- ------------------------------------------------------------------ -->
-    <!--                        JavaScript (AngularJS)                      -->
+    <!--                        Menu Panel                                  -->
     <!-- ------------------------------------------------------------------ -->
-    {% block javaScriptCode %}
+    <div id="objScreen" class="objectScreen">
+        <div class="panel panel-primary menuPanel">
+            <div class="panel-heading">Account augewählt</div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>Attribut</th>
+                        <th class="text-right">Wert</th>
+                    </tr>
+                    <tr>
+                        <td>Id</td>
+                        <td class="text-right"><< selectedObj.id >></td>
+                    </tr>
+                    <tr>
+                        <td>Anbieter</td>
+                        <td class="text-right"><< selectedObj.provider >></td>
+                    </tr>
+                    <tr>
+                        <td>Benutzername</td>
+                        <td class="text-right"><< selectedObj.username >></td>
+                    </tr>
+                </table>
+                <a class="btn btn-primary">Passwort anzeigen</a>
+                <a class="btn btn-primary">Editieren</a>
+                <a class="btn btn-primary">Löschen</a>
+                <a class="btn btn-default" ng-click="cancelScreen()">Abbrechen</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<!-- ------------------------------------------------------------------ -->
+<!--                        JavaScript (AngularJS)                      -->
+<!-- ------------------------------------------------------------------ -->
+{% block javaScriptCode %}
     <script>
-        var app = angular.module("AccountList", ['ngClipboard']);
-        app.controller("listCtrl", function ($scope, $http) {
+        var app = angular.module("{{ pageValues['ngApp'] }}", []);
+        app.controller("{{ pageValues['ngCtrl'] }}", function ($scope, $http) {
 
             // HTTP get data from the server.
-            var url = "/accountList";
+            var url = "/accountListData";
             $http.get(url).then(
                 function success(response) {
                     $scope.tableModel = response.data;
@@ -51,20 +99,36 @@
                 }
             );
 
+            $scope.selectedObj = null;
+
             /**
-             * Copy password of an account into clipboard.
+             * Open menu to a selected Object.
              * @param index
              */
-            $scope.passwordToClipboard = function (index) {
-                var row = $scope.tableModel[index];
-                var pwd = row.password;
-                console.log("Das Passwort: " + pwd);
-                ngClipboard.toClipboard(pwd);
-                if (window.clipboardData && clipboardData.setData) {
-                    // Copy password to clipboard
-                } else {
-                    alert("Browser unterstütz das Kopieren in die Zwischenablage nicht !");
-                }
+            $scope.showMenu = function (index) {
+                $scope.selectedObj = copyObj(index);
+                objScreen.style.display = "inline";
+            };
+
+            /**
+             * Close screen of selected account object.
+             */
+            $scope.cancelScreen = function () {
+                objScreen.style.display = "none";
+            };
+
+            /**
+             * Copy an object from the model.
+             * @param index
+             * @returns
+             */
+            function copyObj(index) {
+                var duplicate = {};
+                duplicate.id = $scope.tableModel[index].id;
+                duplicate.provider = $scope.tableModel[index].provider;
+                duplicate.username = $scope.tableModel[index].username;
+
+                return duplicate;
             }
 
         }).config(function ($interpolateProvider) {

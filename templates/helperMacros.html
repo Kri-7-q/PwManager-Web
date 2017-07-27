@@ -1,0 +1,11 @@
+{% macro angularApp(pageValues) %}
+    {% if 'ngApp' in pageValues %}
+        ng-app="{{ pageValues['ngApp'] }}"
+    {% endif %}
+{% endmacro %}
+
+{% macro angularCtrl(pageValues) %}
+    {% if 'ngController' in pageValues %}
+        ng-controller="{{ pageValues['ngCtrl'] }}"
+    {% endif %}
+{% endmacro %}
