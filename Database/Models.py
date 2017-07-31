@@ -1,5 +1,9 @@
 from Application import db
 
+
+attributeList = ['id', 'provider', 'username', 'password', 'passwordlength', 'definedcharacter', 'question',
+                     'answer', 'lastmodify']
+
 class Account(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     provider = db.Column(db.String)
@@ -19,6 +23,11 @@ class Account(db.Model):
             object[key] = origin[key]
 
         return object
+
+    # Get a dict object of an account with the given id (primary key).
+    @staticmethod
+    def getDictOf(id, keyList):
+        return Account.query.get(id).getDict(keyList)
 
     # Get all Account objects from database as a dictionary.
     # Dictionaries get values of keyList.

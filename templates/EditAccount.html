@@ -1,0 +1,28 @@
+{% extends 'Base.html' %}
+{% from 'helperMacros.html' import inputGroup %}
+
+{% block script %}
+    <link rel="stylesheet" href="/static/style/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <style>
+        .formField {
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="formField">
+        <form>
+            {{ inputGroup('Anbieter', pageValues.form.provider, {'aria-describedby':'basic-addon1'}) }}
+            {{ inputGroup('Benutzername', pageValues.form.username, {'aria-descriptedby':'basic-addon1'}) }}
+            {{ inputGroup('Passwort', pageValues.form.password, {'aria-descriptedby':'basic-addon1'}) }}
+            {{ inputGroup('Passwortlänge', pageValues.form.passwordlength, {'aria-descriptedby':'basic-addon1'}) }}
+            {{ inputGroup('Zulässige Zeichen', pageValues.form.definedcharacter, {'aria-descriptedby':'basic-addon1'}) }}
+            {{ inputGroup('Sicherheitsfrage', pageValues.form.question, {'aria-descriptedby':'basic-addon1'}) }}
+            {{ inputGroup('Antwort zur Frage', pageValues.form.answer, {'aria-descriptedby':'basic-addon1'}) }}
+            {{ pageValues.form.csrf_tocken }}
+        </form>
+    </div>
+{% endblock %}

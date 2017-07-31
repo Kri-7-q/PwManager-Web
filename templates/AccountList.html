@@ -2,10 +2,10 @@
 {% from 'helperMacros.html' import actionDropDown %}
 
 {% block script %}
-    <script src="static/script/angular-1.6.5/angular.js"></script>
-    <script src="static/script/jquery-3.2.1.js"></script>
-    <script src="static/style/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
-    <link rel="stylesheet" href="static/style/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="/static/script/angular-1.6.5/angular.js"></script>
+    <script src="/static/script/jquery-3.2.1.js"></script>
+    <script src="/static/style/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/static/style/bootstrap-3.3.7-dist/css/bootstrap.css">
     <style>
         .dropDownBtn {
             visibility: hidden;
@@ -31,8 +31,8 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a ng-click="showPassword()">Passwort anzeigen</a></li>
-            <li><a >Eintrag editieren</a></li>
+            <li><a href="/showPassword/<< selectedIndex >>">Passwort anzeigen</a></li>
+            <li><a href="/editAccount/<< selectedIndex >>">Eintrag editieren</a></li>
             <li><a >Eintrag l&ouml;schen</a></li>
             <li role="separator" class="divider"></li>
             <li><a ng-click="cancelSelection()">Abbrechen</a></li>
@@ -66,8 +66,8 @@
 <!-- ------------------------------------------------------------------ -->
 {% block javaScriptCode %}
     <script>
-         var app = angular.module("{{ pageValues['ngApp'] }}", []);
-         app.controller("{{ pageValues['ngCtrl'] }}", function ($scope, $http) {
+         var app = angular.module("{{ pageValues.ngApp }}", []);
+         app.controller("{{ pageValues.ngCtrl }}", function ($scope, $http) {
 
              // Load account list from the server.
              $http.get("/accountListData").then(
@@ -97,7 +97,7 @@
                  menuBtn.style.top = top + "px";
                  menuBtn.style.visibility = "visible";
                  $scope.selectedIndex = index;
-             }
+             };
 
              /**
               * Cancel list selection.
@@ -106,7 +106,7 @@
                  listTbl.rows[$scope.selectedIndex+1].style.backgroundColor = "white";
                  menuBtn.style.visibility = "hidden";
                  $scope.selectedIndex = 0;
-             }
+             };
 
          }).config(function ($interpolateProvider) {
          $interpolateProvider.startSymbol('<<').endSymbol('>>');
