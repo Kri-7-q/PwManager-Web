@@ -4,25 +4,63 @@
 {% block script %}
     <link rel="stylesheet" href="/static/style/bootstrap-3.3.7-dist/css/bootstrap.css">
     <style>
-        .formField {
+        .labelCol {
+            background-color: rgb(240, 240, 240);
+        }
+        .formTable {
             width: 60%;
-            margin-left: auto;
-            margin-right: auto;
+            margin: auto;
         }
     </style>
 {% endblock %}
 
 {% block content %}
-    <div class="formField">
         <form>
-            {{ inputGroup('Anbieter', pageValues.form.provider, {'aria-describedby':'basic-addon1'}) }}
-            {{ inputGroup('Benutzername', pageValues.form.username, {'aria-descriptedby':'basic-addon1'}) }}
-            {{ inputGroup('Passwort', pageValues.form.password, {'aria-descriptedby':'basic-addon1'}) }}
-            {{ inputGroup('Passwortlänge', pageValues.form.passwordlength, {'aria-descriptedby':'basic-addon1'}) }}
-            {{ inputGroup('Zulässige Zeichen', pageValues.form.definedcharacter, {'aria-descriptedby':'basic-addon1'}) }}
-            {{ inputGroup('Sicherheitsfrage', pageValues.form.question, {'aria-descriptedby':'basic-addon1'}) }}
-            {{ inputGroup('Antwort zur Frage', pageValues.form.answer, {'aria-descriptedby':'basic-addon1'}) }}
+            {{ pageValues.form.id }}
+            <table class="table formTable">
+                <tr>
+                    <td class="labelCol">Id</td>
+                    <td>{{ pageValues.account.id }}</td>
+                </tr>
+                <tr>
+                    <td class="labelCol">Anbieter</td>
+                    <td>{{ pageValues.form.provider(**{'class':'form-control'}) }}</td>
+                </tr>
+                <tr>
+                    <td class="labelCol">Benutzername</td>
+                    <td>{{ pageValues.form.username(**{'class':'form-control'}) }}</td>
+                </tr>
+                <tr>
+                    <td class="labelCol">Passwort</td>
+                    <td>{{ pageValues.form.password(**{'class':'form-control'}) }}</td>
+                </tr>
+                <tr>
+                    <td class="labelCol">Passwortlänge</td>
+                    <td>{{ pageValues.form.passwordlength(**{'class':'form-control'}) }}</td>
+                </tr>
+                <tr>
+                    <td class="labelCol">Zulässige Zeichen</td>
+                    <td>{{ pageValues.form.definedcharacter(**{'class':'form-control'}) }}</td>
+                </tr>
+                <tr>
+                    <td class="labelCol">Sicherheitsfrage</td>
+                    <td>{{ pageValues.form.question(**{'class':'form-control'}) }}</td>
+                </tr>
+                <tr>
+                    <td class="labelCol">Antwort auf die Frage</td>
+                    <td>{{ pageValues.form.answer(**{'class':'form-control'}) }}</td>
+                </tr>
+                <tr>
+                    <td class="labelCol">Letzte Änderung</td>
+                    <td>{{ pageValues.account.lastmodify }}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="text-center"><input class="btn btn-success" type="submit" value="Speichern"></td>
+                </tr>
+            </table>
             {{ pageValues.form.csrf_tocken }}
         </form>
-    </div>
+    <br>
+    <a class="btn btn-primary" href="/">Startseite</a>
 {% endblock %}

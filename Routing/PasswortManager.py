@@ -28,5 +28,5 @@ def showPassword(id):
 def editAccount(id):
     account = Account.getDictOf(id, attributeList)
     form = EditForm(data=account)
-    pageValues = DictObj(header='Edit Account', form=form)
+    pageValues = DictObj(header='Edit Account', form=form, account=account)
     return render_template('EditAccount.html', pageValues=pageValues)
