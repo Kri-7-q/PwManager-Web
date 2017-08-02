@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="261c8eec-5da4-4230-9e41-4ea19f724147" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AppForms/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Utility/DictObj.py" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Utility/Validators.py" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Utility/__init__.py" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/ShowPassword.html" />
@@ -11,7 +10,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application.py" afterPath="$PROJECT_DIR$/Application.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Database/Models.py" afterPath="$PROJECT_DIR$/Database/Models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Routing/PasswortManager.py" afterPath="$PROJECT_DIR$/Routing/PasswortManager.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Utility/DictObj.py" afterPath="$PROJECT_DIR$/Utility/DictObj.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/AccountList.html" afterPath="$PROJECT_DIR$/templates/AccountList.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/Base.html" afterPath="$PROJECT_DIR$/templates/Base.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/EditAccount.html" afterPath="$PROJECT_DIR$/templates/EditAccount.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/helperMacros.html" afterPath="$PROJECT_DIR$/templates/helperMacros.html" />
     </list>
@@ -24,7 +25,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/PasswortManager$Application.coverage" NAME="Application Coverage Results" MODIFIED="1497715980440" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/PasswortManager$launch.coverage" NAME="launch Coverage Results" MODIFIED="1501525695645" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PasswortManager$launch.coverage" NAME="launch Coverage Results" MODIFIED="1501660540101" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PasswortManager$PasswortManager.coverage" NAME="PasswortManager Coverage Results" MODIFIED="1497715735192" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
   <component name="DatabaseView">
@@ -42,13 +43,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PasswortManager.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PasswortManager.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Routing/PasswortManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="30" column="74" lean-forward="false" selection-start-line="30" selection-start-column="74" selection-end-line="30" selection-end-column="74" />
+            <state relative-caret-position="270">
+              <caret line="34" column="44" lean-forward="false" selection-start-line="34" selection-start-column="44" selection-end-line="34" selection-end-column="44" />
               <folding>
-                <element signature="e#0#42#0" expanded="true" />
+                <element signature="e#0#51#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -67,22 +68,9 @@
       <file leaf-file-name="AccountList.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/AccountList.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="34" lean-forward="false" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
+            <state relative-caret-position="290">
+              <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="helperMacros.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/helperMacros.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="52" lean-forward="false" selection-start-line="1" selection-start-column="52" selection-end-line="1" selection-end-column="52" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -90,30 +78,18 @@
       <file leaf-file-name="ExtendedForms.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AppForms/ExtendedForms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Application.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="5" column="24" lean-forward="false" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+            <state relative-caret-position="15">
+              <caret line="1" column="45" lean-forward="false" selection-start-line="1" selection-start-column="45" selection-end-line="1" selection-end-column="45" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditAccount.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EditAccount.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/EditAccount.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-390">
-              <caret line="18" column="33" lean-forward="false" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
+            <state relative-caret-position="83">
+              <caret line="17" column="62" lean-forward="false" selection-start-line="17" selection-start-column="62" selection-end-line="17" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -122,8 +98,8 @@
       <file leaf-file-name="DictObj.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Utility/DictObj.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state relative-caret-position="187">
+              <caret line="21" column="28" lean-forward="false" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -132,8 +108,8 @@
       <file leaf-file-name="Models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Database/Models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="42" lean-forward="false" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
+            <state relative-caret-position="180">
+              <caret line="45" column="17" lean-forward="false" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -159,18 +135,18 @@
         <option value="$PROJECT_DIR$/Models.py" />
         <option value="$PROJECT_DIR$/PasswortManager.py" />
         <option value="$PROJECT_DIR$/launch.py" />
-        <option value="$PROJECT_DIR$/templates/Base.html" />
         <option value="$PROJECT_DIR$/templates/ShowPassword.html" />
         <option value="$PROJECT_DIR$/ExtendedForms.py" />
         <option value="$PROJECT_DIR$/Utility/Validators.py" />
-        <option value="$PROJECT_DIR$/Utility/DictObj.py" />
         <option value="$PROJECT_DIR$/Application.py" />
-        <option value="$PROJECT_DIR$/templates/AccountList.html" />
         <option value="$PROJECT_DIR$/templates/helperMacros.html" />
-        <option value="$PROJECT_DIR$/Routing/PasswortManager.py" />
-        <option value="$PROJECT_DIR$/Database/Models.py" />
+        <option value="$PROJECT_DIR$/Utility/DictObj.py" />
+        <option value="$PROJECT_DIR$/templates/Base.html" />
+        <option value="$PROJECT_DIR$/templates/AccountList.html" />
         <option value="$PROJECT_DIR$/AppForms/ExtendedForms.py" />
         <option value="$PROJECT_DIR$/templates/EditAccount.html" />
+        <option value="$PROJECT_DIR$/Database/Models.py" />
+        <option value="$PROJECT_DIR$/Routing/PasswortManager.py" />
       </list>
     </option>
   </component>
@@ -601,9 +577,9 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32892805" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32892805" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32892805" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -634,7 +610,7 @@
         <state relative-caret-position="165">
           <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
           <folding>
-            <element signature="e#0#42#0" expanded="true" />
+            <element signature="e#0#51#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -694,7 +670,7 @@
         <state relative-caret-position="150">
           <caret line="13" column="70" lean-forward="false" selection-start-line="13" selection-start-column="70" selection-end-line="13" selection-end-column="70" />
           <folding>
-            <element signature="e#0#42#0" expanded="true" />
+            <element signature="e#0#51#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -746,7 +722,7 @@
         <state relative-caret-position="150">
           <caret line="13" column="70" lean-forward="false" selection-start-line="13" selection-start-column="70" selection-end-line="13" selection-end-column="70" />
           <folding>
-            <element signature="e#0#42#0" expanded="true" />
+            <element signature="e#0#51#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -798,7 +774,7 @@
         <state relative-caret-position="75">
           <caret line="8" column="45" lean-forward="false" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
           <folding>
-            <element signature="e#0#42#0" expanded="true" />
+            <element signature="e#0#51#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -834,7 +810,7 @@
         <state relative-caret-position="75">
           <caret line="8" column="45" lean-forward="false" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
           <folding>
-            <element signature="e#0#42#0" expanded="true" />
+            <element signature="e#0#51#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -870,7 +846,7 @@
         <state relative-caret-position="360">
           <caret line="9" column="44" lean-forward="false" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
           <folding>
-            <element signature="e#0#42#0" expanded="true" />
+            <element signature="e#0#51#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -879,14 +855,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="48" lean-forward="false" selection-start-line="2" selection-start-column="48" selection-end-line="2" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/Base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="30" lean-forward="false" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -907,14 +875,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Utility/DictObj.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Application.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -923,21 +883,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/AccountList.html">
+    <entry file="file://$PROJECT_DIR$/Utility/DictObj.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="34" lean-forward="false" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
+        <state relative-caret-position="187">
+          <caret line="21" column="28" lean-forward="false" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Routing/PasswortManager.py">
+    <entry file="file://$PROJECT_DIR$/templates/Base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
-          <caret line="30" column="74" lean-forward="false" selection-start-line="30" selection-start-column="74" selection-end-line="30" selection-end-column="74" />
-          <folding>
-            <element signature="e#0#42#0" expanded="true" />
-          </folding>
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -952,29 +910,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Database/Models.py">
+    <entry file="file://$PROJECT_DIR$/templates/AccountList.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="42" lean-forward="false" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
+        <state relative-caret-position="290">
+          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/EditAccount.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="83">
+          <caret line="17" column="62" lean-forward="false" selection-start-line="17" selection-start-column="62" selection-end-line="17" selection-end-column="62" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AppForms/ExtendedForms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="15">
+          <caret line="1" column="45" lean-forward="false" selection-start-line="1" selection-start-column="45" selection-end-line="1" selection-end-column="45" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/EditAccount.html">
+    <entry file="file://$PROJECT_DIR$/Database/Models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-390">
-          <caret line="18" column="33" lean-forward="false" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
+        <state relative-caret-position="180">
+          <caret line="45" column="17" lean-forward="false" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Routing/PasswortManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="34" column="44" lean-forward="false" selection-start-line="34" selection-start-column="44" selection-end-line="34" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

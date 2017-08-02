@@ -31,8 +31,8 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="/showPassword/<< selectedIndex >>">Passwort anzeigen</a></li>
-            <li><a href="/editAccount/<< selectedIndex >>">Eintrag editieren</a></li>
+            <li><a href="/showPassword/<< tableModel[selectedIndex].id >>">Passwort anzeigen</a></li>
+            <li><a href="/editAccount/<< tableModel[selectedIndex].id >>">Eintrag editieren</a></li>
             <li><a >Eintrag l&ouml;schen</a></li>
             <li role="separator" class="divider"></li>
             <li><a ng-click="cancelSelection()">Abbrechen</a></li>

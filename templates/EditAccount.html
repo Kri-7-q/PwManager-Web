@@ -1,5 +1,4 @@
 {% extends 'Base.html' %}
-{% from 'helperMacros.html' import inputGroup %}
 
 {% block script %}
     <link rel="stylesheet" href="/static/style/bootstrap-3.3.7-dist/css/bootstrap.css">
@@ -15,8 +14,8 @@
 {% endblock %}
 
 {% block content %}
-        <form>
-            {{ pageValues.form.id }}
+        <form action="/editAccount/0" method="post">
+            {{ pageValues.form.id(style="visibility: hidden;") }}
             <table class="table formTable">
                 <tr>
                     <td class="labelCol">Id</td>
@@ -55,11 +54,11 @@
                     <td>{{ pageValues.account.lastmodify }}</td>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td class="text-danger">{{ pageValues.form.errors }}</td>
                     <td class="text-center"><input class="btn btn-success" type="submit" value="Speichern"></td>
                 </tr>
             </table>
-            {{ pageValues.form.csrf_tocken }}
+            {{ pageValues.form.csrf_token }}
         </form>
     <br>
     <a class="btn btn-primary" href="/">Startseite</a>
