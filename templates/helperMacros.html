@@ -1,6 +1,16 @@
-{% macro inputGroup(label, inputCtrl, args) %}
-    <div class="input-group" style="margin-top: 10px">
-        <span class="input-group-addon" id="basic-addon1" style="width: 15em">{{ label }}</span>
-        {{ inputCtrl(class='form-control', kwargs=args) }}
+<!--     inputGroup(formCtrl, placeholder text, identifier string for bootstrap HTML code)        -->
+{% macro inputGroup(inputCtrl, placeholder, identifier) %}
+    {% set identifier = identifier + '-addon' %}
+    <div class="input-group">
+        <span class="input-group-addon" id="{{ identifier }}">{{ inputCtrl.label }}</span>
+        {{ inputCtrl(class='form-control', placeholder=placeholder, **{'aria-describedby':identifier}) }}
+    </div>
+    <!-- Error field of username input field.-->
+    <div>
+        <span class="text-danger">
+            {% for error in inputCtrl.errors %}
+                {{ error }}
+            {% endfor %}
+        </span>
     </div>
 {% endmacro %}

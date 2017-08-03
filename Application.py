@@ -1,9 +1,25 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_security import SQLAlchemyUserDatastore, Security
+from AppForms.SecurityForms import ExtLoginForm, ExtRegisterUser
+from Utility.DictObj import DictObj
 
 app = Flask('PwManager')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://christian:kri-7-q@localhost:3306/pwmanager'
-app.config['SECRET_KEY'] = b'tb\xa9\x07:\xb6\x04=Q]\xbaJ\xdbC\xe1\x18}Wk\xe5g\x11\xcb\x8b\xa5\x17"R[\x80l\r'
+# ------------- Config -----------------------
+app.config.from_object('config')
+# ---------------------------------------------
 db = SQLAlchemy(app)
+# Setup Flask-Security
+from Database.Models import User, Role
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+security = Security(app, user_datastore, register_form=ExtRegisterUser, login_form=ExtLoginForm)
+# ----------------------- Security forms processors ------------------------
+@security.register_context_processor
+def security_register_processor():
+    return dict(pageValues=DictObj(header='Benutzer registrieren'))
+
+@security.login_context_processor
+def security_login_processor():
+    return dict(pageValues=DictObj(header='Anmelden'))
 
 from Routing import PasswortManager
