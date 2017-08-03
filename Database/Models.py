@@ -45,12 +45,8 @@ class Account(db.Model):
     @staticmethod
     def modifyDBAccount(accountDict):
         account = Account.query.get(accountDict['id'])
-        account.provider = accountDict['provider']
-        account.username = accountDict['username']
-        account.password = accountDict['password']
-        account.passwordlength = accountDict['passwordlength']
-        account.question = accountDict['question']
-        account.answer = accountDict['answer']
-        account.definedcharacter = accountDict['definedcharacter']
-        account.lastmodify = accountDict['lastmodify']
+        a = account.__dict__
+        for key in accountDict:
+            if key in a and a[key] != accountDict[key]:
+                account.__setattr__(key, accountDict[key])
         db.session.commit()
