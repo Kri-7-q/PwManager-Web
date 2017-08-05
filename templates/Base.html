@@ -5,16 +5,29 @@
     <title>Passwort Manager</title>
     {% block script %}
     {% endblock %}
+    <link rel="stylesheet" href="/static/style/navbar.css">
 </head>
-    <body{{ pageValues.angularApp() }}{{ pageValues.angularCtrl() }}>
-        <h1>{{ pageValues.header }}
-            <small>Passwort Manager</small>
-        </h1>
-        <hr>
+    <!--            NavBar on top of the page                           -->
+    <body class="navbar-top-body" {{ pageValues.angularApp() }}{{ pageValues.angularCtrl() }}>
+        <table class="navbar-base navbar-top">
+            <tr>
+                <td class="navbar-ls brandFont">Passwort Manager</td>
+                <td class="navbar-cc titleFont">{{ pageValues.header }}</td>
+                <td class="navbar-rs">
+                    <a class="btn btn-default">Anmelden</a>
+                    <a class="btn btn-default">Registrieren</a>
+                    <a class="btn btn-default">Abmelden</a>
+                </td>
+            </tr>
+        </table>
         <br>
+        <!--                Page content                                -->
         {% block content %}
         {% endblock %}
-    </body>
+        {% block navbarBottom %}
+        {% endblock %}
+     <!--                    JavaScript content                          -->
     {% block javaScriptCode %}
     {% endblock %}
+    </body>
 </html>

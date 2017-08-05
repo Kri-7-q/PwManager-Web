@@ -1,0 +1,58 @@
+:root {
+    --nav-height: 70px;
+}
+
+.brandFont {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.titleFont {
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.navbar-top-body {
+    padding-top: var(--nav-height);
+}
+
+.navbar-bottom-body {
+    padding-bottom: var(--nav-height);
+}
+
+.navbar-base {
+    width: 100%;
+    height: var(--nav-height);
+    position: fixed;
+    left: 0;
+    background-color: rgb(245, 245, 245);
+    border: 1px solid lightgray;
+}
+
+.navbar-top {
+    top: 0px;
+}
+
+.navbar-bottom {
+    bottom: 0px;
+}
+
+.navbar-rs {
+    width: 33%;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.navbar-cc {
+    text-align: center;
+}
+
+.navbar-ls {
+    width: 33%;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.navbar-link {
+    margin-right: 10px;
+}

@@ -60,6 +60,14 @@
             </table>
             {{ pageValues.form.csrf_token }}
         </form>
-    <br>
-    <a class="btn btn-primary" href="/">Startseite</a>
+{% endblock %}
+
+{% block navbarBottom %}
+    <table class="navbar-base navbar-bottom">
+        <tr>
+            <td class="navbar-ls">
+                <a class="btn btn-primary navbar-link" href="/">Startseite</a>
+            </td>
+        </tr>
+    </table>
 {% endblock %}
