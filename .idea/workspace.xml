@@ -4,10 +4,8 @@
     <list default="true" id="261c8eec-5da4-4230-9e41-4ea19f724147" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AppForms/SecurityForms.py" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AppForms/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Utility/GeneratePwd.py" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Utility/Validators.py" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Utility/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Utility/runTest.py" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config.py" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/style/navbar.css" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/login_user.html" />
@@ -16,6 +14,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application.py" afterPath="$PROJECT_DIR$/Application.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Database/Models.py" afterPath="$PROJECT_DIR$/Database/Models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Routing/PasswortManager.py" afterPath="$PROJECT_DIR$/Routing/PasswortManager.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Utility/GeneratePwd.py" afterPath="$PROJECT_DIR$/Utility/GeneratePwd.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/launch.py" afterPath="$PROJECT_DIR$/launch.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/Base.html" afterPath="$PROJECT_DIR$/templates/Base.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/EditAccount.html" afterPath="$PROJECT_DIR$/templates/EditAccount.html" />
@@ -32,7 +31,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/PasswortManager$Application.coverage" NAME="Application Coverage Results" MODIFIED="1497715980440" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PasswortManager$launch.coverage" NAME="launch Coverage Results" MODIFIED="1501927537620" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/PasswortManager$runTest.coverage" NAME="runTest Coverage Results" MODIFIED="1502217932918" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Utility" />
+    <SUITE FILE_PATH="coverage/PasswortManager$runTest.coverage" NAME="runTest Coverage Results" MODIFIED="1502219631584" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Utility" />
     <SUITE FILE_PATH="coverage/PasswortManager$PasswortManager.coverage" NAME="PasswortManager Coverage Results" MODIFIED="1497715735192" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
   <component name="DatabaseView">
@@ -72,11 +71,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GeneratePwd.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GeneratePwd.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Utility/GeneratePwd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="166" column="87" lean-forward="false" selection-start-line="166" selection-start-column="87" selection-end-line="166" selection-end-column="87" />
+            <state relative-caret-position="90">
+              <caret line="6" column="56" lean-forward="false" selection-start-line="6" selection-start-column="56" selection-end-line="6" selection-end-column="56" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -84,11 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="runTest.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="runTest.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Utility/runTest.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
-              <caret line="2" column="16" lean-forward="false" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+              <caret line="2" column="53" lean-forward="false" selection-start-line="2" selection-start-column="53" selection-end-line="2" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -195,8 +194,8 @@
         <option value="$PROJECT_DIR$/templates/ShowPassword.html" />
         <option value="$PROJECT_DIR$/templates/EditAccount.html" />
         <option value="$PROJECT_DIR$/templates/Base.html" />
-        <option value="$PROJECT_DIR$/Utility/GeneratePwd.py" />
         <option value="$PROJECT_DIR$/Utility/runTest.py" />
+        <option value="$PROJECT_DIR$/Utility/GeneratePwd.py" />
       </list>
     </option>
   </component>
@@ -1148,21 +1147,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Utility/GeneratePwd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="166" column="87" lean-forward="false" selection-start-line="166" selection-start-column="87" selection-end-line="166" selection-end-column="87" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Utility/runTest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
-          <caret line="2" column="16" lean-forward="false" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+          <caret line="2" column="53" lean-forward="false" selection-start-line="2" selection-start-column="53" selection-end-line="2" selection-end-column="53" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Utility/GeneratePwd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="56" lean-forward="false" selection-start-line="6" selection-start-column="56" selection-end-line="6" selection-end-column="56" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

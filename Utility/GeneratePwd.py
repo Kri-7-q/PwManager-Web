@@ -4,6 +4,7 @@ import random
 # -------------------------------------------------------------
 #               class:      LetterCase
 # -------------------------------------------------------------
+# For Range objcets. If range is like '[a-Z]' or '[A-z]'
 class LetterCase:
     def __init__(self, start, end):
         self.start = ord(start)
@@ -33,16 +34,13 @@ class BaseCharSet:
         return True
 
     # Get randomly the defined amount of character from the charset.
+    # Returns a list of character (string).
     def randomCharset(self):
-        charPot = []
-        for c in self.charset:
-            charPot.append(c)
-        charset = str()
+        charset = []
         random.seed(None, 2)
         for i in range(0, self.amount):
-            rnd = random.randrange(0, len(charPot))
-            charset += charPot[rnd]
-            del charPot[rnd]
+            rnd = random.randrange(0, len(self.charset))
+            charset.append(self.charset[rnd])
         return charset
 
     def toString(self):
@@ -70,8 +68,6 @@ class Range(BaseCharSet):
         end = definition[pos+3]
         letterCase = LetterCase(start, end)
         self.charset = self.rangeString(letterCase.start, letterCase.end)
-        if self.amount and self.amount > len(self.charset):
-            raise Exception("The definition '" + self.definition + "' has not enough characters. See defined amount.")
         if letterCase.bothCase:
             self.charset += self.charset.upper()
 
@@ -110,8 +106,6 @@ class Set(BaseCharSet):
             self.amount = int(definition[:pos])
         end = len(definition) - 1
         self.charset = definition[pos+1:end]
-        if self.amount and self.amount > len(self.charset):
-            raise Exception("The definition '" + self.definition + "' has not enough characters. See defined amount.")
 
 # -------------------------------------------------------------
 #               class:      Generator
@@ -174,6 +168,20 @@ class Generator:
                 if rest > 0:
                     obj.amount += 1
                     rest -= 1
+
+    # Get a random password from definition.
+    def randomPassword(self):
+        charset = []
+        for obj in self.definitionList:
+            charset += obj.randomCharset()
+        random.seed(None, 2)
+        password = str()
+        while(len(charset) > 0):
+            rnd = random.randrange(0, len(charset))
+            password += charset[rnd]
+            del charset[rnd]
+
+        return password
 
     # Object to string
     def toString(self):
