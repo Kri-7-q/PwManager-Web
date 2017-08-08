@@ -43,9 +43,9 @@ class BaseCharSet:
             charset.append(self.charset[rnd])
         return charset
 
-    def toString(self):
+    def __str__(self):
         print('-----------------------------------------------------')
-        print('Klasse: ' + str(type(self)))
+        print('Klasse: ' + self.__class__.__name__)
         print('Definition: ' + self.definition)
         print('Anzahl: ' + str(self.amount))
         print('Zeichen: ' + self.charset)
@@ -81,14 +81,6 @@ class Range(BaseCharSet):
             raise Exception("The start value '" + chr(start) + "' of Range object is greater then the end value '" + chr(end) + ".")
 
         return charset
-
-    # Return a triple with ord(start), ord(end) and True or False.
-    # If definition has a upper case and a lower case letter then
-    # the range should contain uppser and lower case letters.
-    def letterCase(self, start, end):
-        if start.isupper() == end.isupper():
-            return (ord(start.lower()), ord(end.lower()), True)
-        return (ord(start), ord(end), False)
 
 # -------------------------------------------------------------
 #               class:      Set
@@ -128,7 +120,7 @@ class Generator:
         self.__parsePattern(self.patternRange, True)
         self.__parsePattern(self.patternSet)
         if len(self.definition) > 0:
-            raise Exception("The part '" + definition + "' of definition is not valid.")
+            raise Exception("The part '" + self.definition + "' of definition is not valid.")
         self.__fixAmount()
         self.definition = definition
 
@@ -183,9 +175,8 @@ class Generator:
 
         return password
 
-    # Object to string
-    def toString(self):
+    def __str__(self):
         print('Definition: ' + self.definition)
         print('Passwortlänge: ' + str(self.lengthPwd))
         for obj in self.definitionList:
-            obj.toString()
+            obj.__str__()
