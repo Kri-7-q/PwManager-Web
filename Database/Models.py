@@ -1,9 +1,22 @@
 from Application import db
 from flask_security import RoleMixin, UserMixin
+from Utility.DictObj import DictObj
 
 
-attributeList = ['id', 'provider', 'username', 'password', 'passwordlength', 'definedcharacter', 'question',
+modelAttribute = DictObj(
+    id = 'Id',
+    provider = 'Anbieter',
+    username = 'Benutzername',
+    password = 'Passwort',
+    passwordlength = 'Passwortlänge',
+    definedcharacter = 'Zulässige Zeichen',
+    question = 'Sicherheitsfrage',
+    answer = 'Antwort Sicherheitsfrage',
+    lastmodify = 'Letzte Änderung',
+    attributeList = ['id', 'provider', 'username', 'password', 'passwordlength', 'definedcharacter', 'question',
                      'answer', 'lastmodify']
+)
+
 
 class Account(db.Model):
     id = db.Column(db.Integer, primary_key=True)

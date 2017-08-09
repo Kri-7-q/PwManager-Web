@@ -4,7 +4,7 @@ import datetime
 from flask_security import login_required
 
 from Application import app
-from Database.Models import Account, attributeList
+from Database.Models import Account, modelAttribute
 from AppForms.ExtendedForms import EditForm
 
 
@@ -24,8 +24,8 @@ def loadAccountList():
 @app.route('/showPassword/<int:id>')
 @login_required
 def showPassword(id):
-    account = Account.query.get(id).getDict(attributeList)
-    pageValues = DictObj(header='Account mit Passwort', account=account, accountAttributes=attributeList)
+    account = Account.query.get(id).getDict(modelAttribute.attributeList)
+    pageValues = DictObj(header='Account mit Passwort', account=account, modelAttribute=modelAttribute)
     return render_template('ShowPassword.html', pageValues=pageValues)
 
 # ------------------------- Edit account --------------------------------------
@@ -39,7 +39,7 @@ def editAccount(id):
         if form.validate():
             Account.modifyDBAccount(account)
     else:
-        account = Account.getDictOf(id, attributeList)
+        account = Account.getDictOf(id, modelAttribute.attributeList)
         form = EditForm(data=account)
-    pageValues = DictObj(header='Edit Account', form=form, account=account)
+    pageValues = DictObj(header='Edit Account', form=form, account=account, modelAttribute=modelAttribute)
     return render_template('EditAccount.html', pageValues=pageValues)

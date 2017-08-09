@@ -14,9 +14,14 @@
                 <td class="navbar-ls brandFont">Passwort Manager</td>
                 <td class="navbar-cc titleFont">{{ pageValues.header }}</td>
                 <td class="navbar-rs">
-                    <a class="btn btn-default">Anmelden</a>
-                    <a class="btn btn-default">Registrieren</a>
-                    <a class="btn btn-default">Abmelden</a>
+                    {% if pageValues.login %}
+                    <a class="btn btn-default" href="/login">Anmelden</a>
+                    {% endif %}
+                    {% if not current_user.is_authenticated %}
+                    <a class="btn btn-default" href="/register">Registrieren</a>
+                    {% else %}
+                    <a class="btn btn-default" href="/logout">Abmelden</a>
+                    {% endif %}
                 </td>
             </tr>
         </table>
@@ -24,6 +29,7 @@
         <!--                Page content                                -->
         {% block content %}
         {% endblock %}
+        <!--                NavBar on the bottom of page                -->
         {% block navbarBottom %}
         {% endblock %}
      <!--                    JavaScript content                          -->

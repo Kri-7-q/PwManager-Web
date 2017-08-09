@@ -1,22 +1,22 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField
+from wtforms import StringField, PasswordField
+from wtforms.fields.html5 import IntegerField
 from wtforms.validators import DataRequired
 from Utility.Validators import integerValidator
-from Utility.DictObj import DictObj
+from Database.Models import modelAttribute as label
 
 class EditForm(FlaskForm):
-    id = IntegerField('id', validators=[integerValidator])
-    provider = StringField('Anbieter', validators=[DataRequired()])
-    username = StringField('Benutzername', validators=[DataRequired()])
-    password = StringField('Passwort', validators=[DataRequired()])
-    passwordlength = IntegerField('Passwortlänge', validators=[DataRequired(), integerValidator])
-    definedcharacter = StringField('Erlaubte Zeichen')
-    question = StringField('Sicherheitsfrage')
-    answer = StringField('Antwort')
+    id = IntegerField(label.id, validators=[integerValidator])
+    provider = StringField(label.provider, validators=[DataRequired()])
+    username = StringField(label.username, validators=[DataRequired()])
+    password = StringField(label.password, validators=[DataRequired()])
+    passwordlength = IntegerField(label.passwordlength, validators=[DataRequired(), integerValidator])
+    definedcharacter = StringField(label.definedcharacter)
+    question = StringField(label.question)
+    answer = StringField(label.answer)
 
-    # Get form data as a DictObj object.
-    def getDict(self):
-        return DictObj(id=int(self.id.data), provider=self.provider.data, username=self.username.data,
-                       password=self.password.data, passwordlength=self.passwordlength.data,
-                       definedcharacter=self.definedcharacter.data, question=self.question.data,
-                       answer=self.answer.data)
+
+class GeneratePwdForm(FlaskForm):
+    lenght = IntegerField('Passwortlänge', validators=[integerValidator])
+    password = PasswordField('Passwort', validators=[DataRequired()])
+    definedcharacter = StringField('Erlaubte Zeichen', validators=[DataRequired()])
