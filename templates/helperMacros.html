@@ -14,3 +14,19 @@
         </span>
     </div>
 {% endmacro %}
+
+<!--    Creates a table row in a form with a label column and a form ctrl column            -->
+{% macro tableRowFormCtrl(formCtrl) %}
+    <tr>
+        <td class="labelCol">{{ formCtrl.label }}</td>
+        <td>{{ formCtrl(**{'class':'form-control'}) }}</td>
+    </tr>
+{% endmacro %}
+
+<!--    Creates a table row with a label column and a value column.                         -->
+{% macro tableRowForm(label, value) %}
+    <tr>
+        <td class="labelCol">{{ label }}</td>
+        <td>{{ value }}</td>
+    </tr>
+{% endmacro %}

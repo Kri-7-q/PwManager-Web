@@ -1,0 +1,115 @@
+{% from 'helperMacros.html' import tableRowForm, tableRowFormCtrl %}
+{% extends 'Base.html' %}
+
+{% block script %}
+    <script src="/static/script/jquery-3.2.1.js"></script>
+    <script src="/static/script/angular-1.6.5/angular.js"></script>
+{% endblock %}
+
+{% block style %}
+    <style>
+        .formTable {
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 5%;
+        }
+        .labelCol {
+            background-color: rgb(240, 240, 240);
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <form id="formCtrl" action="/generatePwd" method="post">
+        <table class="table formTable">
+            {% for attribute in pageValues.attributeList %}
+                {{ tableRowForm(pageValues.modelAttribute[attribute], pageValues.account[attribute]) }}
+            {% endfor %}
+            {{ tableRowFormCtrl(pageValues.form.password) }}
+            {{ tableRowFormCtrl(pageValues.form.passwordlength) }}
+            {{ tableRowFormCtrl(pageValues.form.definedcharacter) }}
+        </table>
+    </form>
+    <!--                    Error and success message                   -->
+    <div class="formTable">
+        <p ng-class="msgClass"><< message >></p>
+    </div>
+{% endblock %}
+
+{% block navbarBottom %}
+    <table class="navbar-base navbar-bottom">
+        <tr>
+            <td class="navbar-ls">
+                <a class="btn btn-primary navbar-link" href="/">Startseite</a>
+                <a class="btn btn-primary navbar-link" href="/editAccount/{{ pageValues.account['id'] }}">Edit</a>
+                <a class="btn btn-primary navbar-link" href="/showPassword/{{ pageValues.account['id'] }}">Passwort anzeigen</a>
+                <a class="btn btn-warning navbar-link" ng-click="getPassword()">Neues Passwort</a>
+                <a class="btn btn-success navbar-link" ng-click="submitForm()">Speichern</a>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
+
+{% block javaScriptCode %}
+    <script>
+        var app = angular.module("{{ pageValues.ngApp }}", []);
+        app.controller("{{ pageValues.ngCtrl }}", function ($scope, $http) {
+
+            $scope.msgClass = { 'text-success':true, 'text-danger':false };
+            $scope.message = null;
+
+            /**
+             * Get a new password from the generator.
+             */
+            $scope.getPassword = function () {
+                $scope.message = null;
+                var data = getPwdDefinition();
+                var url = "/getNewPassword";
+                var config = {
+                    headers: {"Content-Type": "application/json; charset=utf-8;"}
+                };
+                $http.post(url, data, config).then(
+                    function (response) {
+                        // success
+                        if (response.data.error) {
+                            setMsgClass(false);
+                            $scope.message = response.data.error;
+                        } else {
+                            setMsgClass(true);
+                            $scope.message = "Neues Passwort erhalten. (  " + response.data.password + "  )";
+                            $("#password").val(response.data.password);
+                        }
+                    },
+                    function () {
+                        // error: server not reachable
+                        setMsgClass(false);
+                        $scope.message = "Error: Server was not reachable.";
+                    }
+                )
+            };
+
+            // Submit form to save new password and definition.
+            $scope.submitForm = function () {
+                formCtrl.submit();
+            };
+
+            // Set the css class for response message.
+            function setMsgClass(success) {
+                $scope.msgClass["text-success"] = success;
+                $scope.msgClass["text-danger"] = !success;
+            }
+
+            // Read password definition from form ctrl's
+            function getPwdDefinition() {
+                pwdlength = $("#passwordlength").val();
+                charset = $("#definedcharacter").val();
+
+                return {"passwordlength":pwdlength, "definedcharacter":charset};
+            }
+
+        }).config(function ($interpolateProvider) {
+            $interpolateProvider.startSymbol('<<').endSymbol('>>');
+        });
+    </script>
+{% endblock %}

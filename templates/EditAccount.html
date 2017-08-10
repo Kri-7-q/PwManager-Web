@@ -1,7 +1,7 @@
+{% from 'helperMacros.html' import tableRowFormCtrl, tableRowForm %}
 {% extends 'Base.html' %}
 
-{% block script %}
-    <link rel="stylesheet" href="/static/style/bootstrap-3.3.7-dist/css/bootstrap.css">
+{% block style %}
     <style>
         .labelCol {
             background-color: rgb(240, 240, 240);
@@ -16,44 +16,16 @@
 {% block content %}
         <form id="editForm" action="/editAccount/0" method="post">
             {{ pageValues.form.id(style="visibility: hidden;") }}
-            {% set form = pageValues.form %}
             <table class="table formTable">
-                <tr>
-                    <td class="labelCol">{{ form.id.label }}</td>
-                    <td>{{ pageValues.account.id }}</td>
-                </tr>
-                <tr>
-                    <td class="labelCol">{{ form.provider.label }}</td>
-                    <td>{{ pageValues.form.provider(**{'class':'form-control'}) }}</td>
-                </tr>
-                <tr>
-                    <td class="labelCol">{{ form.username.label }}</td>
-                    <td>{{ pageValues.form.username(**{'class':'form-control'}) }}</td>
-                </tr>
-                <tr>
-                    <td class="labelCol">{{ form.password.label }}</td>
-                    <td>{{ pageValues.form.password(**{'class':'form-control'}) }}</td>
-                </tr>
-                <tr>
-                    <td class="labelCol">{{ form.passwordlength.label }}</td>
-                    <td>{{ pageValues.form.passwordlength(**{'class':'form-control'}) }}</td>
-                </tr>
-                <tr>
-                    <td class="labelCol">{{ form.definedcharacter.label }}</td>
-                    <td>{{ pageValues.form.definedcharacter(**{'class':'form-control'}) }}</td>
-                </tr>
-                <tr>
-                    <td class="labelCol">{{ form.question.label }}</td>
-                    <td>{{ pageValues.form.question(**{'class':'form-control'}) }}</td>
-                </tr>
-                <tr>
-                    <td class="labelCol">{{ form.answer.label }}</td>
-                    <td>{{ pageValues.form.answer(**{'class':'form-control'}) }}</td>
-                </tr>
-                <tr>
-                    <td class="labelCol"><label>{{ pageValues.modelAttribute.lastmodify }}</label></td>
-                    <td>{{ pageValues.account.lastmodify }}</td>
-                </tr>
+                {{ tableRowForm(pageValues.form.id.label, pageValues.account.id) }}
+                {{ tableRowFormCtrl(pageValues.form.provider) }}
+                {{ tableRowFormCtrl(pageValues.form.username) }}
+                {{ tableRowFormCtrl(pageValues.form.password) }}
+                {{ tableRowFormCtrl(pageValues.form.passwordlength) }}
+                {{ tableRowFormCtrl(pageValues.form.definedcharacter) }}
+                {{ tableRowFormCtrl(pageValues.form.question) }}
+                {{ tableRowFormCtrl(pageValues.form.answer) }}
+                {{ tableRowForm(pageValues.modelAttribute.lastmodify, pageValues.account.lastmodify) }}
             </table>
             {{ pageValues.form.csrf_token }}
             <div class="formTable">
@@ -71,6 +43,8 @@
         <tr>
             <td class="navbar-ls">
                 <a class="btn btn-primary navbar-link" href="/">Startseite</a>
+                <a class="btn btn-primary navbar-link" href="/showPassword/{{ pageValues.account.id }}">Passwort anzeigen</a>
+                <a class="btn btn-primary navbar-link" href="/generatePwd/{{ pageValues.account.id }}">Passwort generieren</a>
                 <a class="btn btn-success navbar-link" onclick="submitForm()">Speichern</a>
             </td>
         </tr>

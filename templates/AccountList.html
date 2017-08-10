@@ -5,7 +5,8 @@
     <script src="/static/script/angular-1.6.5/angular.js"></script>
     <script src="/static/script/jquery-3.2.1.js"></script>
     <script src="/static/style/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
-    <link rel="stylesheet" href="/static/style/bootstrap-3.3.7-dist/css/bootstrap.css">
+{% endblock %}
+{% block style %}
     <style>
         .dropDownBtn {
             visibility: hidden;
@@ -33,6 +34,7 @@
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li><a href="/showPassword/<< tableModel[selectedIndex].id >>">Passwort anzeigen</a></li>
             <li><a href="/editAccount/<< tableModel[selectedIndex].id >>">Eintrag editieren</a></li>
+            <li><a href="/generatePwd/<< tableModel[selectedIndex].id >>">Passwort generieren</a> </li>
             <li><a >Eintrag l&ouml;schen</a></li>
             <li role="separator" class="divider"></li>
             <li><a ng-click="cancelSelection()">Abbrechen</a></li>

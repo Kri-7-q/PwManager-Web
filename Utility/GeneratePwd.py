@@ -2,6 +2,16 @@ import re
 import random
 
 # -------------------------------------------------------------
+#               class:      GenerateException
+# -------------------------------------------------------------
+class GenerateException(Exception):
+    def __init__(self, expression, message, text):
+        self.expression = expression
+        self.message = message
+        self.text = text
+
+
+# -------------------------------------------------------------
 #               class:      LetterCase
 # -------------------------------------------------------------
 # For Range objcets. If range is like '[a-Z]' or '[A-z]'
@@ -78,7 +88,10 @@ class Range(BaseCharSet):
             for c in range(start, end+1):
                 charset += chr(c)
         else:
-            raise Exception("The start value '" + chr(start) + "' of Range object is greater then the end value '" + chr(end) + ".")
+            raise GenerateException(
+                "if start < end:",
+                "The start value '" + chr(start) + "' of Range object is greater then the end value '" + chr(end) + ".",
+                "Bei dem Range-Objekt '" + self.definition + "' ist der Start größer als das Ende.")
 
         return charset
 
@@ -120,7 +133,10 @@ class Generator:
         self.__parsePattern(self.patternRange, True)
         self.__parsePattern(self.patternSet)
         if len(self.definition) > 0:
-            raise Exception("The part '" + self.definition + "' of definition is not valid.")
+            raise GenerateException(
+                definition,
+                "The part '" + self.definition + "' of definition is not valid.",
+                "Nach dem parsen der Passwortdefinition blieb ein Rest: " + self.definition)
         self.__fixAmount()
         self.definition = definition
 
@@ -152,7 +168,9 @@ class Generator:
             return
         amount = int((self.lengthPwd - self.lengthDefined) / self.objectsWithoutLenght)
         if amount <= 0:
-            raise Exception('There are more characters defined ({0}) then the password length ({1}).'.format(self.lengthDefined, self.lengthPwd))
+            raise GenerateException('password length < definition length',
+                                    'There are more characters defined ({0}) then the password length ({1}).'.format(self.lengthDefined, self.lengthPwd),
+                                    'Es sind mehr Zeichen definitiert als das Passwort lang sein soll.')
         rest = (self.lengthPwd - self.lengthDefined) % self.objectsWithoutLenght
         for obj in self.definitionList:
             if not obj.hasAmount():

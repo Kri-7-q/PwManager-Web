@@ -5,10 +5,13 @@
     <title>Passwort Manager</title>
     {% block script %}
     {% endblock %}
+    <link rel="stylesheet" href="/static/style/bootstrap-3.3.7-dist/css/bootstrap.css">
     <link rel="stylesheet" href="/static/style/navbar.css">
+    {% block style %}
+    {% endblock %}
 </head>
     <!--            NavBar on top of the page                           -->
-    <body class="navbar-top-body" {{ pageValues.angularApp() }}{{ pageValues.angularCtrl() }}>
+    <body class="navbar-top-body navbar-bottom-body" {{ pageValues.angularApp() }}{{ pageValues.angularCtrl() }}>
         <table class="navbar-base navbar-top">
             <tr>
                 <td class="navbar-ls brandFont">Passwort Manager</td>

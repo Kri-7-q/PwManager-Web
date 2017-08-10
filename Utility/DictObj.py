@@ -21,11 +21,11 @@ class DictObj(dict):
         if 'ngApp' in self:
             return Markup(' ng-app="{}"'.format(self['ngApp']))
         else:
-            return None
+            return ''
 
     # Get the HTML-Attribute for AngularJS Controller.
     def angularCtrl(self):
         if 'ngCtrl' in self:
             return Markup(' ng-controller="{}"'.format(self['ngCtrl']))
         else:
-            return None
+            return ''

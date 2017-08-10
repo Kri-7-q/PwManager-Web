@@ -17,6 +17,6 @@ class EditForm(FlaskForm):
 
 
 class GeneratePwdForm(FlaskForm):
-    lenght = IntegerField('Passwortlänge', validators=[integerValidator])
-    password = PasswordField('Passwort', validators=[DataRequired()])
-    definedcharacter = StringField('Erlaubte Zeichen', validators=[DataRequired()])
+    passwordlength = IntegerField(label.passwordlength, validators=[integerValidator])
+    password = StringField(label.password, validators=[DataRequired()])
+    definedcharacter = StringField(label.definedcharacter, validators=[DataRequired()])
