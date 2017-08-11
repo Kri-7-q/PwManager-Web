@@ -6,7 +6,6 @@ from Utility.Validators import integerValidator
 from Database.Models import modelAttribute as label
 
 class EditForm(FlaskForm):
-    id = IntegerField(label.id, validators=[integerValidator])
     provider = StringField(label.provider, validators=[DataRequired()])
     username = StringField(label.username, validators=[DataRequired()])
     password = StringField(label.password, validators=[DataRequired()])
@@ -17,6 +16,7 @@ class EditForm(FlaskForm):
 
 
 class GeneratePwdForm(FlaskForm):
+    id = IntegerField(label.id, validators=[integerValidator])
     passwordlength = IntegerField(label.passwordlength, validators=[integerValidator])
     password = StringField(label.password, validators=[DataRequired()])
     definedcharacter = StringField(label.definedcharacter, validators=[DataRequired()])

@@ -1,6 +1,7 @@
 from Application import db
 from flask_security import RoleMixin, UserMixin
 from Utility.DictObj import DictObj
+import datetime
 
 
 modelAttribute = DictObj(
@@ -59,12 +60,23 @@ class Account(db.Model):
     @staticmethod
     def modifyDBAccount(accountDict):
         account = Account.query.get(accountDict['id'])
+        account.lastmodify = datetime.datetime.today()
         a = account.__dict__
         for key in accountDict:
             if key in a and a[key] != accountDict[key]:
                 account.__setattr__(key, accountDict[key])
         db.session.commit()
 
+    @staticmethod
+    def insertAccount(accountDict):
+        accountDict['lastmodify'] = datetime.datetime.today()
+        account = Account()
+        for key in accountDict:
+            account.__setattr__(key, accountDict[key])
+        db.session.add(account)
+        db.session.commit()
+
+        return account.id
 
 # ----------------------------------------------------------------------------------------
 #   Flask Security

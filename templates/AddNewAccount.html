@@ -1,4 +1,4 @@
-{% from 'helperMacros.html' import tableRowForm, tableRowFormCtrl %}
+{% from 'helperMacros.html' import tableRowFormCtrl %}
 {% extends 'Base.html' %}
 
 {% block script %}
@@ -10,39 +10,41 @@
     <style>
         .formTable {
             width: 60%;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 5%;
+            margin: auto;
         }
         .labelCol {
             background-color: rgb(240, 240, 240);
+        }
+        .tableMargin {
+            margin-top: 7%;
         }
     </style>
 {% endblock %}
 
 {% block content %}
-    <form id="formCtrl" action="/generatePwd/{{ pageValues.account['id'] }}" method="post">
-        <table class="table formTable">
-            {% for attribute in pageValues.attributeList %}
-                {{ tableRowForm(pageValues.modelAttribute[attribute], pageValues.account[attribute]) }}
-            {% endfor %}
-            {{ tableRowFormCtrl(pageValues.form.password) }}
+    <form id="formCtrl" action="/addNewAccount" method="post">
+        <table class="table formTable tableMargin">
+            {{ tableRowFormCtrl(pageValues.form.provider) }}
+            {{ tableRowFormCtrl(pageValues.form.username) }}
             {{ tableRowFormCtrl(pageValues.form.passwordlength) }}
             {{ tableRowFormCtrl(pageValues.form.definedcharacter) }}
+            {{ tableRowFormCtrl(pageValues.form.password) }}
+            {{ tableRowFormCtrl(pageValues.form.question) }}
+            {{ tableRowFormCtrl(pageValues.form.answer) }}
         </table>
-        {{ pageValues.form.id(**{'hidden':true}) }}
         {{ pageValues.form.csrf_token }}
     </form>
-    <!--                    Error and success message                   -->
-    <div class="formTable">
-        <p ng-class="msgClass"><< message >></p>
-    </div>
+    <!--                Form validation errors.                     -->
     <div class="formTable">
         <ul class="text-danger">
             {% for error in pageValues.form.errors %}
                 <li>{{ error }}</li>
             {% endfor %}
         </ul>
+    </div>
+    <!--                Post response                               -->
+    <div class="formTable">
+        <span ng-class="msgClass"><< message >></span>
     </div>
 {% endblock %}
 
@@ -51,10 +53,8 @@
         <tr>
             <td class="navbar-ls">
                 <a class="btn btn-primary navbar-link" href="/">Startseite</a>
-                <a class="btn btn-primary navbar-link" href="/editAccount/{{ pageValues.account['id'] }}">Edit</a>
-                <a class="btn btn-primary navbar-link" href="/showPassword/{{ pageValues.account['id'] }}">Passwort anzeigen</a>
-                <a class="btn btn-success navbar-link" ng-click="getPassword()">Neues Passwort</a>
-                <a class="btn btn-success navbar-link" ng-click="submitForm()">Speichern</a>
+                <a class="btn btn-success navbar-link" ng-click="getPassword()">Passwort generieren</a>
+                <a class="btn btn-success navbar-link" onclick="submitForm()">Speichern</a>
             </td>
         </tr>
     </table>
@@ -98,11 +98,6 @@
                 )
             };
 
-            // Submit form to save new password and definition.
-            $scope.submitForm = function () {
-                formCtrl.submit();
-            };
-
             // Set the css class for response message.
             function setMsgClass(success) {
                 $scope.msgClass["text-success"] = success;
@@ -120,5 +115,12 @@
         }).config(function ($interpolateProvider) {
             $interpolateProvider.startSymbol('<<').endSymbol('>>');
         });
+
+        /**
+         * Submit form on button click.
+         */
+        function submitForm() {
+            $("#formCtrl").submit();
+        }
     </script>
 {% endblock %}

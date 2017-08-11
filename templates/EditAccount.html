@@ -14,10 +14,9 @@
 {% endblock %}
 
 {% block content %}
-        <form id="editForm" action="/editAccount/0" method="post">
-            {{ pageValues.form.id(style="visibility: hidden;") }}
+        <form id="editForm" action="/editAccount/{{ pageValues.account.id }}" method="post">
             <table class="table formTable">
-                {{ tableRowForm(pageValues.form.id.label, pageValues.account.id) }}
+                {{ tableRowForm(pageValues.modelAttribute.id, pageValues.account.id) }}
                 {{ tableRowFormCtrl(pageValues.form.provider) }}
                 {{ tableRowFormCtrl(pageValues.form.username) }}
                 {{ tableRowFormCtrl(pageValues.form.password) }}

@@ -1,7 +1,6 @@
 from flask import render_template, jsonify, request
 from flask_security import login_required
 from Application import app
-import datetime
 from Database.Models import Account, modelAttribute
 from AppForms.ExtendedForms import EditForm, GeneratePwdForm
 from Utility.DictObj import DictObj
@@ -33,14 +32,13 @@ def showPassword(id):
 @login_required
 def editAccount(id):
     form = EditForm()
+    account = Account.getDictOf(id, modelAttribute.attributeList)
     if request.method == 'POST':
-        account = form.data
-        account['lastmodify'] = datetime.datetime.today()
+        account.update(form.data)
         if form.validate():
             Account.modifyDBAccount(account)
             return showPassword(id)
     else:
-        account = Account.getDictOf(id, modelAttribute.attributeList)
         form = EditForm(data=account)
     pageValues = DictObj(header='Edit Account', form=form, account=account, modelAttribute=modelAttribute)
     return render_template('EditAccount.html', pageValues=pageValues)
@@ -50,14 +48,14 @@ def editAccount(id):
 @login_required
 def generatePwd(id):
     form = GeneratePwdForm()
+    account = Account.getDictOf(id, modelAttribute.attributeList)
     if request.method == 'POST':
+        account.update(form.data)
         if form.validate():
-            account = form.data
             account['lastmodify'] = datetime.datetime.today()
             Account.modifyDBAccount(account)
-            return showPassword(id)
+            return showPassword(account['id'])
     else:
-        account = Account.getDictOf(id, modelAttribute.attributeList)
         form = GeneratePwdForm(data=account)
     attributeList = ['id', 'provider', 'username', 'question', 'answer', 'lastmodify']
     pageValues = DictObj(header='Passwort generieren', modelAttribute=modelAttribute, account=account, form=form,
@@ -68,7 +66,7 @@ def generatePwd(id):
 def getNewPassword():
     definition = request.get_json()
     response = dict(error='', password='')
-    print(definition)
+    print(request.values)
     try:
         length = int(definition['passwordlength'])
         generator = Generator(definition['definedcharacter'], length)
@@ -78,7 +76,17 @@ def getNewPassword():
         response['error'] = 'Die Passwortlänge muss eine Ganzzahl sein.'
     except GenerateException as error:
         print ('Fehler in: ' + error.expression)
-        print(error.message)                       # Return message from Exception
+        print(error.message)
         response['error'] = error.text
 
     return jsonify(response)
+
+# ------------------------- New account --------------------------------------
+@app.route('/addNewAccount', methods=['GET', 'POST'])
+def addNewAccount():
+    form = EditForm()
+    if request.method == 'POST' and form.validate():
+        id = Account.insertAccount(form.data)
+        return showPassword(id)
+    pageValues = DictObj(header='Neues Account Objekt erstellen', form=form, ngApp='GeneratePwd', ngCtrl='PostCtrl')
+    return render_template('AddNewAccount.html', pageValues=pageValues)
