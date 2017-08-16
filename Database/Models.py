@@ -1,5 +1,5 @@
 from Application import db
-from flask_security import RoleMixin, UserMixin
+from flask_security import RoleMixin, UserMixin, current_user
 from Utility.DictObj import DictObj
 import datetime
 
@@ -14,12 +14,14 @@ modelAttribute = DictObj(
     question = 'Sicherheitsfrage',
     answer = 'Antwort Sicherheitsfrage',
     lastmodify = 'Letzte Änderung',
+    userid = 'Eigentümer',
     attributeList = ['id', 'provider', 'username', 'password', 'passwordlength', 'definedcharacter', 'question',
-                     'answer', 'lastmodify']
+                     'answer', 'lastmodify', 'userid']
 )
 
 
 class Account(db.Model):
+    __tablename__ = 'accountlist'
     id = db.Column(db.Integer, primary_key=True)
     provider = db.Column(db.String)
     username = db.Column(db.String)
@@ -29,6 +31,7 @@ class Account(db.Model):
     question = db.Column(db.String)
     answer = db.Column(db.String)
     lastmodify = db.Column(db.DateTime)
+    userid = db.Column(db.ForeignKey('user.id'))
 
     # Get dict from Account object.
     def getDict(self, keyList):
@@ -48,7 +51,7 @@ class Account(db.Model):
     # Dictionaries get values of keyList.
     @staticmethod
     def getObjList(keyList):
-        accounts = Account.query.all()
+        accounts = Account.query.filter_by(userid=current_user.id).all()
         list = [ ]
         for account in accounts:
             object = account.getDict(keyList)
@@ -70,6 +73,7 @@ class Account(db.Model):
     @staticmethod
     def insertAccount(accountDict):
         accountDict['lastmodify'] = datetime.datetime.today()
+        accountDict['userid'] = current_user.id
         account = Account()
         for key in accountDict:
             account.__setattr__(key, accountDict[key])

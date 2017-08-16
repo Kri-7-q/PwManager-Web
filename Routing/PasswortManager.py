@@ -24,7 +24,9 @@ def loadAccountList():
 @login_required
 def showPassword(id):
     account = Account.query.get(id).getDict(modelAttribute.attributeList)
-    pageValues = DictObj(header='Account mit Passwort', account=account, modelAttribute=modelAttribute)
+    attributes = modelAttribute
+    attributes['attributeList'] = modelAttribute.attributeList[:-1]
+    pageValues = DictObj(header='Account mit Passwort', account=account, modelAttribute=attributes)
     return render_template('ShowPassword.html', pageValues=pageValues)
 
 # ------------------------- Edit account --------------------------------------
@@ -32,7 +34,7 @@ def showPassword(id):
 @login_required
 def editAccount(id):
     form = EditForm()
-    account = Account.getDictOf(id, modelAttribute.attributeList)
+    account = Account.getDictOf(id, modelAttribute.attributeList[:-1])
     if request.method == 'POST':
         account.update(form.data)
         if form.validate():
@@ -48,11 +50,10 @@ def editAccount(id):
 @login_required
 def generatePwd(id):
     form = GeneratePwdForm()
-    account = Account.getDictOf(id, modelAttribute.attributeList)
+    account = Account.getDictOf(id, modelAttribute.attributeList[:-1])
     if request.method == 'POST':
         account.update(form.data)
         if form.validate():
-            account['lastmodify'] = datetime.datetime.today()
             Account.modifyDBAccount(account)
             return showPassword(account['id'])
     else:
