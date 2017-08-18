@@ -1,3 +1,4 @@
+{% from 'helperMacros.html' import searchForm %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +18,9 @@
                 <td class="navbar-ls brandFont">Passwort Manager</td>
                 <td class="navbar-cc titleFont">{{ pageValues.header }}</td>
                 <td class="navbar-rs">
+                    {% if pageValues.list %}
+                        {{ searchForm('searchText', 'find()', 'reset()', 'onKeyPress($event)') }}
+                    {% endif %}
                     {% if pageValues.login %}
                     <a class="btn btn-default" href="/login">Anmelden</a>
                     {% endif %}

@@ -11,7 +11,7 @@ from Utility.GeneratePwd import Generator, GenerateException
 @app.route('/')
 @login_required
 def start():
-    pageValues = DictObj(header='Liste aller Accounts', ngApp='PwdManager', ngCtrl='ListCtrl')
+    pageValues = DictObj(header='Liste aller Accounts', ngApp='PwdManager', ngCtrl='ListCtrl', list=True)
     return render_template('AccountList.html', pageValues=pageValues)
 
 @app.route('/accountListData')

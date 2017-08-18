@@ -5,12 +5,23 @@
         <span class="input-group-addon" id="{{ identifier }}">{{ inputCtrl.label }}</span>
         {{ inputCtrl(class='form-control', placeholder=placeholder, **{'aria-describedby':identifier}) }}
     </div>
-    <!-- Error field of username input field.-->
+    <!-- Error field of form input field.-->
     <div>
         <span class="text-danger">
             {% for error in inputCtrl.errors %}
                 {{ error }}
             {% endfor %}
+        </span>
+    </div>
+{% endmacro %}
+
+<!--    searchForm(id for search text field, function string for button onclick)        -->
+{% macro searchForm(textId, btnSearchFunc, btnResetFunc, keyPressFunc) %}
+    <div class="input-group" style="width: 15em; float: left">
+        <input id="{{ textId }}" type="text" class="form-control" placeholder="Suche nach..." ng-keypress="{{ keyPressFunc }}" aria-label="...">
+        <span class="input-group-btn">
+                <button class="btn btn-default" type="button" ng-click="{{ btnResetFunc }}">x</button>
+                <button class="btn btn-success" type="button" ng-click="{{ btnSearchFunc }}">Los!</button>
         </span>
     </div>
 {% endmacro %}

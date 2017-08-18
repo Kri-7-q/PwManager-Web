@@ -5,6 +5,7 @@
     <script src="/static/script/angular-1.6.5/angular.js"></script>
     <script src="/static/script/jquery-3.2.1.js"></script>
     <script src="/static/style/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <script src="/static/script/fuse.min.js"></script>
 {% endblock %}
 {% block style %}
     <style>
@@ -13,6 +14,7 @@
             position: absolute;
             right: 5%;
         }
+
         .listTable {
             width: 90%;
             margin-left: 5%;
@@ -34,8 +36,8 @@
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li><a href="/showPassword/<< tableModel[selectedIndex].id >>">Passwort anzeigen</a></li>
             <li><a href="/editAccount/<< tableModel[selectedIndex].id >>">Eintrag editieren</a></li>
-            <li><a href="/generatePwd/<< tableModel[selectedIndex].id >>">Passwort generieren</a> </li>
-            <li><a >Eintrag l&ouml;schen</a></li>
+            <li><a href="/generatePwd/<< tableModel[selectedIndex].id >>">Passwort generieren</a></li>
+            <li><a>Eintrag l&ouml;schen</a></li>
             <li role="separator" class="divider"></li>
             <li><a ng-click="cancelSelection()">Abbrechen</a></li>
         </ul>
@@ -53,11 +55,11 @@
         </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="account in tableModel track by $index" ng-click="showDropDownBtn($index)">
-                <td><< account.id >></td>
-                <td><< account.provider >></td>
-                <td><< account.username >></td>
-            </tr>
+        <tr ng-repeat="account in tableModel track by $index" ng-click="showDropDownBtn($index)">
+            <td><< account.id >></td>
+            <td><< account.provider >></td>
+            <td><< account.username >></td>
+        </tr>
         </tbody>
     </table>
 
@@ -78,50 +80,94 @@
 <!-- ------------------------------------------------------------------ -->
 {% block javaScriptCode %}
     <script>
-         var app = angular.module("{{ pageValues.ngApp }}", []);
-         app.controller("{{ pageValues.ngCtrl }}", function ($scope, $http) {
+        var app = angular.module("{{ pageValues.ngApp }}", []);
+        app.controller("{{ pageValues.ngCtrl }}", function ($scope, $http) {
 
-             // Load account list from the server.
-             $http.get("/accountListData").then(
-                 function (response) {
-                     // Success
-                     $scope.tableModel = response.data;
-                 },
-                 function () {
-                     // Error
-                 }
-             );
+            $scope.tableModel = [];
+            $scope.tempModel = null;
+            $scope.fuse = null;
 
-             $scope.selectedIndex = 0;
+            // Load account list from the server.
+            $http.get("/accountListData").then(
+                function (response) {
+                    // Success
+                    $scope.tableModel = response.data;
+                    $scope.fuse = new Fuse($scope.tableModel, options); // Create search object (module)
+                },
+                function () {
+                    // Error
+                }
+            );
 
-             /**
-              * Place drop down button an make it visible.
-              * @param index
-              */
-             $scope.showDropDownBtn = function (index) {
-                 listTbl.rows[$scope.selectedIndex+1].style.backgroundColor = "white";
-                 listTbl.rows[index+1].style.backgroundColor = "lightblue";
-                 var rowHeight = listTbl.rows[1].offsetHeight;
-                 var topBase = listTbl.offsetTop + listTbl.rows[0].offsetHeight;
-                 var btnHeight = menuBtn.offsetHeight;
-                 var margin = (rowHeight - btnHeight) / 2;
-                 var top = topBase + rowHeight * index + margin;
-                 menuBtn.style.top = top + "px";
-                 menuBtn.style.visibility = "visible";
-                 $scope.selectedIndex = index;
-             };
+            /*
+             * Selection in table view
+             * -------------------------------------------------
+             */
+            $scope.selectedIndex = 0;
 
-             /**
-              * Cancel list selection.
-              */
-             $scope.cancelSelection = function () {
-                 listTbl.rows[$scope.selectedIndex+1].style.backgroundColor = "white";
-                 menuBtn.style.visibility = "hidden";
-                 $scope.selectedIndex = 0;
-             };
+            /**
+             * Place drop down button an make it visible.
+             * @param index
+             */
+            $scope.showDropDownBtn = function (index) {
+                listTbl.rows[$scope.selectedIndex + 1].style.backgroundColor = "white";
+                listTbl.rows[index + 1].style.backgroundColor = "lightblue";
+                var rowHeight = listTbl.rows[1].offsetHeight;
+                var topBase = listTbl.offsetTop + listTbl.rows[0].offsetHeight;
+                var btnHeight = menuBtn.offsetHeight;
+                var margin = (rowHeight - btnHeight) / 2;
+                var top = topBase + rowHeight * index + margin;
+                menuBtn.style.top = top + "px";
+                menuBtn.style.visibility = "visible";
+                $scope.selectedIndex = index;
+            };
 
-         }).config(function ($interpolateProvider) {
-         $interpolateProvider.startSymbol('<<').endSymbol('>>');
-         });
+            /**
+             * Cancel list selection.
+             */
+            $scope.cancelSelection = function () {
+                listTbl.rows[$scope.selectedIndex + 1].style.backgroundColor = "white";
+                menuBtn.style.visibility = "hidden";
+                $scope.selectedIndex = 0;
+            };
+
+            /*
+             * Fuse Search
+             * ---------------------------------------------
+             */
+            var options = {
+                shouldSort: true,
+                threshold: 0.6,
+                location: 0,
+                distance: 100,
+                maxPatternLength: 32,
+                minMatchCharLength: 1,
+                keys: ["provider"]
+            };
+
+            $scope.find = function () {
+                if ($scope.tempModel != null) {
+                    $scope.reset();
+                }
+                var mask = searchText.value;
+                var result = $scope.fuse.search(mask);
+                $scope.tempModel = $scope.tableModel;
+                $scope.tableModel = result;
+            };
+
+            $scope.reset = function () {
+                $scope.tableModel = $scope.tempModel;
+                $scope.tempModel = null;
+            };
+
+            $scope.onKeyPress = function (e) {
+                if (e.keyCode == 13) {
+                    $scope.find();
+                }
+            };
+
+        }).config(function ($interpolateProvider) {
+            $interpolateProvider.startSymbol('<<').endSymbol('>>');
+        });
     </script>
 {% endblock %}
