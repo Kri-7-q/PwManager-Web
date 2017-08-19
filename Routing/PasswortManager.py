@@ -15,6 +15,7 @@ def start():
     return render_template('AccountList.html', pageValues=pageValues)
 
 @app.route('/accountListData')
+@login_required
 def loadAccountList():
     list = Account.getObjList(['id', 'provider', 'username'])
     return jsonify(list)
@@ -64,6 +65,7 @@ def generatePwd(id):
     return render_template('GeneratePwd.html', pageValues=pageValues)
 
 @app.route('/getNewPassword', methods=['POST'])
+@login_required
 def getNewPassword():
     definition = request.get_json()
     response = dict(error='', password='')
@@ -84,6 +86,7 @@ def getNewPassword():
 
 # ------------------------- New account --------------------------------------
 @app.route('/addNewAccount', methods=['GET', 'POST'])
+@login_required
 def addNewAccount():
     form = EditForm()
     if request.method == 'POST' and form.validate():
@@ -91,3 +94,20 @@ def addNewAccount():
         return showPassword(id)
     pageValues = DictObj(header='Neues Account Objekt erstellen', form=form, ngApp='GeneratePwd', ngCtrl='PostCtrl')
     return render_template('AddNewAccount.html', pageValues=pageValues)
+
+
+# ------------------------ Show password -------------------------------------
+@app.route('/deleteAccount/<int:id>', methods=['GET', 'POST'])
+def deleteAccount(id):
+    if request.method == 'POST':
+        print("Post request:    get_json()")
+        obj = request.get_json()
+        print(obj)
+        Account.deleteAccount(obj['id'])
+        return jsonify(dict(success=True, text='Der Eintrag wurde gelöscht.'))
+    pageValues = DictObj(header='Account löschen')
+    pageValues.attributeList = ['id', 'provider', 'username', 'lastmodify']
+    pageValues.account = Account.getDictOf(id, pageValues.attributeList)
+    pageValues.id = id
+    pageValues.modelAttribute = modelAttribute
+    return render_template('DeleteAccount.html', pageValues=pageValues)

@@ -1,0 +1,91 @@
+{% extends 'Base.html' %}
+
+{% block style %}
+    <style>
+        .labelCol {
+            background-color: rgb(240, 240, 240);
+        }
+
+        .formTable {
+            width: 60%;
+            margin: auto;
+            margin-top: 10%;
+        }
+
+        .table-header {
+            color: white;
+            background-color: grey;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <table class="table formTable">
+        <tr class="table-header">
+            <th>Attribut</th>
+            <th>Wert</th>
+        </tr>
+        {% for attribute in pageValues.attributeList %}
+            <tr>
+                <td class="labelCol">{{ pageValues.modelAttribute[attribute] }}</td>
+                <td>{{ pageValues.account[attribute] }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td class="labelCol">Eintrag löschen</td>
+            <td><input id="deleteBtn" class="btn btn-danger" style="width: 100%" type="button" value="Löschen"
+                       onclick="deleteAccount({{ pageValues.id }})"></td>
+        </tr>
+    </table>
+    <div id="response" class="formTable"></div>
+{% endblock %}
+
+{% block navbarBottom %}
+    <table class="navbar-base navbar-bottom">
+        <tr>
+            <td class="navbar-ls">
+                <a class="btn btn-primary navbar-link" href="/">Startseite</a>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
+
+{% block javaScriptCode %}
+    <script>
+        function deleteAccount(id) {
+            var doRemove = window.confirm("Willst du den Eintrag wirklich löschen ?");
+            if (doRemove) {
+                var http = new XMLHttpRequest();
+                var url = "/deleteAccount/0";
+                var data = {"id":id};
+                http.open("POST", url, true);
+
+                //Send the proper header information along with the request
+                http.setRequestHeader("Content-type", "application/json; charset=utf-8;");
+
+                http.onreadystatechange = function () {
+                    if (http.readyState == 4) {
+                        if (http.status == 200) {
+                            var response = JSON.parse(http.response);
+                            setResponeMsg(response.success, response.text);
+                        } else {
+                            setResponeMsg(false, "Der Server konnte nicht erreicht werden.");
+                        }
+                    }
+                };
+                http.send(JSON.stringify(data));
+            }
+        };
+
+        function setResponeMsg(success, text) {
+            var msgField = document.getElementById("response");
+            if (success) {
+                msgField.style.color = "green";
+                document.getElementById("deleteBtn").style.display = "none";
+            } else {
+                msgField.style.color = "red";
+            }
+            msgField.innerHTML = text;
+        }
+    </script>
+{% endblock %}

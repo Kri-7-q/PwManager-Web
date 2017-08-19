@@ -82,6 +82,12 @@ class Account(db.Model):
 
         return account.id
 
+    @staticmethod
+    def deleteAccount(id):
+        account = Account.query.get(id)
+        db.session.delete(account)
+        db.session.commit()
+
 # ----------------------------------------------------------------------------------------
 #   Flask Security
 # ----------------------------------------------------------------------------------------
