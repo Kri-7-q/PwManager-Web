@@ -1,4 +1,4 @@
-from Application import db
+from Application import db, credentials
 from flask_security import RoleMixin, UserMixin, current_user
 from Utility.DictObj import DictObj
 import datetime
@@ -21,7 +21,7 @@ modelAttribute = DictObj(
 
 
 class Account(db.Model):
-    __tablename__ = 'accountlist'
+    __tablename__ = credentials.tablename
     id = db.Column(db.Integer, primary_key=True)
     provider = db.Column(db.String)
     username = db.Column(db.String)

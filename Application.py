@@ -7,8 +7,10 @@ from Utility.Credentials import Credentials
 
 app = Flask('PwManager')
 # ------------- Config -----------------------
+conectionFile = Credentials.userHomePath() + '/.pwmanager'
+credentials = Credentials.fromFile(conectionFile)
 app.config.from_object('config')
-app.config['SQLALCHEMY_DATABASE_URI'] = Credentials.fromFile('/Users/Christian/.pwmanager').connectionStringDB('postgresql')
+app.config['SQLALCHEMY_DATABASE_URI'] = credentials.connectionStringDB('postgresql')
 # ---------------------------------------------
 db = SQLAlchemy(app)
 # Setup Flask-Security

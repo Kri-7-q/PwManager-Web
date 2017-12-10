@@ -1,3 +1,5 @@
+from os.path import expanduser
+
 class Credentials:
 
     def __init__(self):
@@ -30,3 +32,22 @@ class Credentials:
         val['database'] = database
 
         return string.format_map(val)
+
+    def tableName(self):
+        return self.tablename
+
+    def port(self):
+        return self.port
+
+    def hostname(self):
+        return self.hostname
+
+    def databaseName(self):
+        return self.databasename
+
+    def username(self):
+        return self.username
+
+    @staticmethod
+    def userHomePath():
+        return expanduser('~')
